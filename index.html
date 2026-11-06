@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CineVerse - Filmes, séries e animes em um só lugar.">
+    <meta name="theme-color" content="#0b1215">
+    <title>CineVerse | Seu universo de entretenimento</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ícones (sprite) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <symbol id="i-logo" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="20" fill="none" stroke="currentColor" stroke-width="4.5"/>
+            <path d="M28 22v20l16-10z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="46" cy="18" r="5.5" fill="currentColor"/>
+        </symbol>
+        <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+        <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.4C.9 8.2 2.9 4.5 6.5 4.5c2 0 3.5 1 4.5 2.5h2c1-1.5 2.5-2.5 4.5-2.5 3.6 0 5.6 3.7 4.1 7.1C19.5 16.4 12 21 12 21z"/></symbol>
+        <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></symbol>
+        <symbol id="i-tv" viewBox="0 0 24 24"><rect x="2.5" y="7" width="19" height="13" rx="2.5"/><path d="m8 2.5 4 4.5 4-4.5"/></symbol>
+        <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+        <symbol id="i-trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></symbol>
+        <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+        <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+        <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+        <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+        <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    </defs>
+</svg>
+
+<!-- ============ LOGIN ============ -->
+<section class="auth-screen" id="authScreen">
+    <div class="auth-background"></div>
+
+    <div class="auth-container">
+        <a class="brand auth-brand" href="#">
+            <span class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-logo"/></svg></span>
+            CineVerse
+        </a>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <span class="eyebrow">SEU UNIVERSO DE ENTRETENIMENTO</span>
+                <h1 id="authTitle">Bem-vindo de volta</h1>
+                <p id="authSubtitle">Entre na sua conta para continuar.</p>
+            </div>
+
+            <form id="authForm">
+                <div class="auth-field" id="authNameWrap" hidden>
+                    <label for="authName">Nome</label>
+                    <input type="text" id="authName" placeholder="Como podemos te chamar?" autocomplete="name">
+                </div>
+
+                <div class="auth-field">
+                    <label for="authEmail">E-mail</label>
+                    <input type="email" id="authEmail" placeholder="Digite seu e-mail" autocomplete="email" required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="authPassword">Senha</label>
+                    <input type="password" id="authPassword" placeholder="Digite sua senha" autocomplete="current-password" required minlength="6">
+                </div>
+
+                <p class="auth-message" id="authMessage" role="alert"></p>
+
+                <button type="submit" class="primary-btn auth-submit" id="authSubmit">Entrar na conta</button>
+            </form>
+
+            <div class="auth-switch">
+                <span id="authSwitchText">Ainda não tem uma conta?</span>
+                <button type="button" id="authSwitch" class="text-btn">Criar conta</button>
+            </div>
+
+            <p class="auth-disclaimer">Sua experiência de entretenimento começa aqui.</p>
+        </div>
+
+        <p class="auth-footer">CineVerse © 2026 • Todos os direitos reservados</p>
+    </div>
+</section>
+
+
+<!-- ============ APLICAÇÃO ============ -->
+<div class="app-shell" id="appShell" hidden>
+
+    <!-- BARRA LATERAL -->
+    <aside class="sidebar">
+        <a class="brand" href="#inicio" data-nav-link="inicio">
+            <span class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-logo"/></svg></span>
+            <span class="brand-text">CineVerse</span>
+        </a>
+
+        <nav class="side-nav" aria-label="Navegação principal">
+            <button type="button" class="side-link active" data-nav="inicio">
+                <svg class="ico"><use href="#i-home"/></svg><span>Início</span>
+            </button>
+            <button type="button" class="side-link" data-nav="favoritos">
+                <svg class="ico"><use href="#i-heart"/></svg><span>Minha lista</span>
+                <b id="favCount" class="count">0</b>
+            </button>
+            <button type="button" class="side-link" data-nav="emalta">
+                <svg class="ico"><use href="#i-trend"/></svg><span>Em alta</span>
+            </button>
+
+            <span class="side-label">Categorias</span>
+
+            <button type="button" class="side-link" data-nav="Filme">
+                <svg class="ico"><use href="#i-film"/></svg><span>Filmes</span>
+            </button>
+            <button type="button" class="side-link" data-nav="Série">
+                <svg class="ico"><use href="#i-tv"/></svg><span>Séries</span>
+            </button>
+            <button type="button" class="side-link" data-nav="Anime">
+                <svg class="ico"><use href="#i-zap"/></svg><span>Animes</span>
+            </button>
+        </nav>
+
+        <div class="side-top">
+            <span class="side-label">Mais bem avaliados</span>
+            <div id="sideTop" class="side-top-list"></div>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <div class="main-wrap">
+
+        <!-- TOPO -->
+        <header class="topbar">
+            <label class="select-wrap">
+                <select id="categorySelect" aria-label="Categoria">
+                    <option value="Todos">Todos</option>
+                    <option value="Filme">Filmes</option>
+                    <option value="Série">Séries</option>
+                    <option value="Anime">Animes</option>
+                </select>
+                <svg class="ico"><use href="#i-chev-d"/></svg>
+            </label>
+
+            <label class="search-box">
+                <svg class="ico"><use href="#i-search"/></svg>
+                <input id="searchInput" type="search" placeholder="Buscar filmes, séries e animes..." aria-label="Buscar título" autocomplete="off">
+            </label>
+
+            <div class="user-area">
+                <button type="button" class="user-avatar" id="userAvatar" title="Trocar avatar" aria-label="Trocar avatar">U</button>
+                <div class="user-details">
+                    <strong id="userName">Usuário</strong>
+                    <span class="user-greeting">Membro CineVerse</span>
+                </div>
+                <button type="button" class="logout-btn" id="logoutBtn" title="Sair da conta" aria-label="Sair da conta">
+                    <svg class="ico"><use href="#i-logout"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <main>
+
+            <!-- DESTAQUE -->
+            <section class="hero" id="inicio" aria-roledescription="carrossel">
+                <div class="hero-bg" id="heroBg" data-poster-bg></div>
+                <div class="hero-shade"></div>
+
+                <div class="hero-content" id="heroContent">
+                    <div class="hero-tags" id="heroTags"></div>
+                    <h1 id="heroTitle"></h1>
+                    <p id="heroDesc"></p>
+                    <div class="hero-actions">
+                        <button type="button" class="primary-btn" id="heroDetails">
+                            <svg class="ico fill"><use href="#i-play"/></svg> Ver detalhes
+                        </button>
+                        <button type="button" class="round-btn" id="heroFav" aria-label="Favoritar">♡</button>
+                    </div>
+                </div>
+
+                <div class="hero-poster" id="heroPoster">
+                    <div class="poster-fallback"></div>
+                    <img class="poster-img" alt="" data-poster="">
+                </div>
+
+                <div class="hero-controls">
+                    <button type="button" class="round-btn sm" id="heroPrev" aria-label="Anterior"><svg class="ico"><use href="#i-chev-l"/></svg></button>
+                    <div class="hero-dots" id="heroDots"></div>
+                    <button type="button" class="round-btn sm" id="heroNext" aria-label="Próximo"><svg class="ico"><use href="#i-chev-r"/></svg></button>
+                </div>
+            </section>
+
+
+            <!-- EM ALTA -->
+            <section class="rail-section" id="emalta">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">EM ALTA AGORA</span>
+                        <h2>Mais bem avaliados</h2>
+                    </div>
+                    <div class="arrows">
+                        <button type="button" class="round-btn sm" data-rail="topRail" data-dir="-1" aria-label="Voltar"><svg class="ico"><use href="#i-chev-l"/></svg></button>
+                        <button type="button" class="round-btn sm" data-rail="topRail" data-dir="1" aria-label="Avançar"><svg class="ico"><use href="#i-chev-r"/></svg></button>
+                    </div>
+                </div>
+                <div class="rail" id="topRail"></div>
+            </section>
+
+
+            <!-- CATÁLOGO -->
+            <section class="catalog-section" id="catalogo">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">ESCOLHA SEU UNIVERSO</span>
+                        <h2>Explore o catálogo</h2>
+                    </div>
+                    <p id="resultCount">Carregando títulos...</p>
+                </div>
+
+                <div class="toolbar">
+                    <div class="chips-wrap">
+                        <div class="chips" id="genreChips" role="group" aria-label="Filtrar por gênero"></div>
+                        <div class="arrows">
+                            <button type="button" class="round-btn sm" data-rail="genreChips" data-dir="-1" aria-label="Voltar"><svg class="ico"><use href="#i-chev-l"/></svg></button>
+                            <button type="button" class="round-btn sm" data-rail="genreChips" data-dir="1" aria-label="Avançar"><svg class="ico"><use href="#i-chev-r"/></svg></button>
+                        </div>
+                    </div>
+
+                    <label class="select-wrap sort">
+                        <select id="sortSelect" aria-label="Ordenar">
+                            <option value="relevance">Relevância</option>
+                            <option value="rating">Melhor avaliação</option>
+                            <option value="year">Mais recentes</option>
+                            <option value="title">A–Z</option>
+                        </select>
+                        <svg class="ico"><use href="#i-chev-d"/></svg>
+                    </label>
+                </div>
+
+                <div class="catalog-grid" id="catalogGrid"></div>
+
+                <p class="empty-state" id="emptyState" hidden>Nenhum título encontrado. Tente outra busca.</p>
+            </section>
+
+
+            <!-- FAVORITOS -->
+            <section class="favorites-section" id="favoritos">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">GUARDADOS POR VOCÊ</span>
+                        <h2>Minha lista</h2>
+                    </div>
+                    <p>Seus filmes, séries e animes favoritos.</p>
+                </div>
+
+                <div class="favorites-content" id="favoritesContent"></div>
+            </section>
+
+            <!-- SOBRE -->
+            <section class="about-section" id="sobre">
+                <span class="eyebrow">SOBRE O PROJETO</span>
+                <h2>Entretenimento em um só lugar.</h2>
+                <p>
+                    O CineVerse reúne filmes, séries e animes em um catálogo organizado para
+                    facilitar sua experiência. Descubra novos títulos, conheça suas histórias
+                    e monte sua própria lista de favoritos.
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <a class="brand" href="#inicio">
+                <span class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#i-logo"/></svg></span>
+                CineVerse
+            </a>
+            <span>Seu universo de entretenimento • 2026</span>
+        </footer>
+    </div>
+</div>
+
+
+<!-- ============ MODAL ============ -->
+<div class="modal-backdrop" id="detailModal" hidden>
+    <section class="detail-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-bg" id="modalBg" data-poster-bg></div>
+
+        <button class="close-modal" id="closeModal" aria-label="Fechar" type="button">×</button>
+
+        <div class="modal-poster" id="modalPoster">
+            <div class="poster-fallback"></div>
+            <img class="poster-img" alt="" data-poster="">
+        </div>
+
+        <div class="modal-info">
+            <span class="eyebrow" id="modalCategory"></span>
+            <h2 id="modalTitle"></h2>
+            <div class="hero-tags" id="modalTags"></div>
+            <p id="modalDescription"></p>
+
+            <button class="primary-btn" id="modalFavorite" type="button">♡ Adicionar aos favoritos</button>
+
+            <p class="demo-note">Informações ilustrativas. O site não reproduz filmes ou episódios.</p>
+        </div>
+
+        <section class="reviews" id="reviewsBox">
+            <div class="reviews-head">
+                <h3>Avaliações</h3>
+                <span class="reviews-summary" id="reviewsSummary"></span>
+            </div>
+
+            <div class="rate-box">
+                <span class="rate-label">Sua nota</span>
+                <div class="star-input" id="starInput" role="radiogroup" aria-label="Sua nota de 1 a 5 estrelas"></div>
+                <textarea id="reviewText" rows="3" maxlength="300" placeholder="Conte o que você achou (opcional)"></textarea>
+                <div class="rate-actions">
+                    <button type="button" class="primary-btn" id="reviewSubmit">Publicar avaliação</button>
+                    <button type="button" class="ghost-btn" id="reviewRemove" hidden>Remover</button>
+                    <span class="review-msg" id="reviewMsg" role="status"></span>
+                </div>
+            </div>
+
+            <div class="review-list" id="reviewList"></div>
+            <p class="demo-note">As avaliações de outros usuários são exemplos ilustrativos.</p>
+        </section>
+    </section>
+</div>
+
+<!-- ============ ESCOLHER AVATAR ============ -->
+<div class="modal-backdrop" id="avatarModal" hidden>
+    <section class="avatar-modal" role="dialog" aria-modal="true" aria-labelledby="avatarTitle">
+        <button class="close-modal" id="closeAvatar" aria-label="Fechar" type="button">×</button>
+        <h2 id="avatarTitle">Escolha seu avatar</h2>
+        <p>Ele aparece no seu perfil e nas suas avaliações.</p>
+        <div class="avatar-grid" id="avatarGrid"></div>
+    </section>
+</div>
+
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="reviews.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
